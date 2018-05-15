@@ -3,8 +3,14 @@ Title: Serve Data in RStudio Connection Pane
 Version: 0.0.0.9000
 Authors@R: person('Colin', 'Fay', email = 'contact@colinfay.me', role = c('cre', 'aut'))
 Description: Use the RStudio Connection Pane to serve the data from a package.
-License: {{ License }}
+License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/ColinFay/fryingpane
 BugReports: https://github.com/ColinFay/fryingpane/issues
 Encoding: UTF-8
+Suggests: 
+    testthat
+Imports: 
+    attempt,
+    glue
+RoxygenNote: 6.0.1
