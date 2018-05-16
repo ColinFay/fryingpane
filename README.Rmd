@@ -32,11 +32,9 @@ remotes::install_github("ColinFay/fryingpane")
 
 ### In your package
 
-Use this package to create functions for displaying your package data inside the RStudio Connection Pane. 
+Use this package to create a function for displaying your package data inside the RStudio Connection Pane. 
 
-__Note that you'll need both opening and closing functions, either in a package or interactively__.
-
-`{fryingpane}` should be listed as a dependency to your new package. 
+Note that `{fryingpane}` should be listed as a dependency to your new package. 
 
 #### Function to launch connection
 
@@ -51,29 +49,13 @@ Create a function that launch the connection pane with the datasets from your pa
 open_connection <- fryingpane::serve("mypkg")
 ```
 
-#### Function to close the connection
-
-__Important: don't change the name of close_connection()__
-
-```{r eval = FALSE}
-#' Stop Connection Pane
-#' @export
-#' @importFrom fryingpane close
-#' @example 
-
-close_connection <- fryingpane::close("mypkg")
-```
-
 ### View the data from another package
 
 You can open the datasets from another package. 
 
-__Please note that you need to create BOTH functions when using interactively.__
-
 ```{r eval = FALSE}
 library(fryingpane)
 open_dplyr <- serve("dplyr")
-close_connection <- close("dplyr")
 open_dplyr()
 ```
 

@@ -6,6 +6,11 @@ on_connection_closed <- function(pkg_name) {
     observer$connectionClosed(type = "Data sets", host = pkg_name)
 }
 
+close_connection <- function(pkg_name) {
+  on_connection_closed(pkg_name)
+  print("Connection closed")
+}
+
 # For connection open
 
 list_objects <- function(includeType, data_names, data_type) {
@@ -21,7 +26,7 @@ list_objects <- function(includeType, data_names, data_type) {
 }
 
 tibble_res <- function(label, type){
-  tibble::tibble(
+  data.frame(
     name = label,
     type = type
   )
@@ -67,7 +72,6 @@ list_objects_types <- function() {
 #' @export
 
 on_connection_opened <- function(pkg_name = "pkg") {
-  #browser()
   data_list  <- data(package = pkg_name)
   data_results <- as.data.frame(data_list$results)
   observer <- getOption("connectionObserver")
@@ -76,9 +80,9 @@ on_connection_opened <- function(pkg_name = "pkg") {
                               host = pkg_name,
                               displayName = pkg_name,
                               icon = system.file("img","package.png", package = "fryingpane"),
-                              connectCode = glue('library(fryingpane)\nopen_{pkg_name} <- serve("{pkg_name}")\nclose_connection <- close("{pkg_name}")\nopen_{pkg_name}()'),
+                              connectCode = glue('library(fryingpane)\nopen_{pkg_name} <- serve("{pkg_name}")\nopen_{pkg_name}()'),
                               disconnect = function() {
-                                close_connection()
+                                close_connection(pkg_name)
                               },
                               listObjectTypes = function () {
                                 list_objects_types()
@@ -117,26 +121,6 @@ serve <- function(pkg_name){
   test_if_exists(pkg_name)
   function(...){
     on_connection_opened(pkg_name)
-  }
-}
-
-#' Create a Pane Closing Function
-#'
-#' @param pkg_name the name of the package
-#'
-#' @return a function for closing the connection
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' close_connection <- pane_close("dplyr")
-#' close_connection()
-#' }
-
-close <- function(pkg_name){
-  test_if_exists(pkg_name)
-  function(...){
-    on_connection_closed(pkg_name)
   }
 }
 
