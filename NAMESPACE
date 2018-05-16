@@ -3,5 +3,6 @@
 export(close)
 export(on_connection_opened)
 export(serve)
+importFrom(attempt,stop_if)
 importFrom(glue,glue)
 importFrom(utils,browseURL)

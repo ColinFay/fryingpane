@@ -75,8 +75,8 @@ on_connection_opened <- function(pkg_name = "pkg") {
     observer$connectionOpened(type = "Data sets",
                               host = pkg_name,
                               displayName = pkg_name,
-                              icon = NULL, #system.file("icons","neologo.png", package = "neo4r"),
-                              connectCode = glue('library(fryingpane)\nopen_{pkg_name} <- pane_open("{pkg_name}")\nclose_connection <- pane_close("{pkg_name}")\nopen_{pkg_name}()'),
+                              icon = system.file("img","package.png", package = "fryingpane"),
+                              connectCode = glue('library(fryingpane)\nopen_{pkg_name} <- serve("{pkg_name}")\nclose_connection <- close("{pkg_name}")\nopen_{pkg_name}()'),
                               disconnect = function() {
                                 close_connection()
                               },
@@ -114,7 +114,7 @@ on_connection_opened <- function(pkg_name = "pkg") {
 #' }
 
 serve <- function(pkg_name){
-
+  test_if_exists(pkg_name)
   function(...){
     on_connection_opened(pkg_name)
   }
@@ -134,8 +134,18 @@ serve <- function(pkg_name){
 #' }
 
 close <- function(pkg_name){
+  test_if_exists(pkg_name)
   function(...){
     on_connection_closed(pkg_name)
   }
+}
+
+#' @importFrom attempt stop_if
+#' @importFrom glue glue
+
+test_if_exists <- function(pkg_name){
+  stop_if(find.package(pkg_name, quiet = TRUE),
+          ~ length(.x) == 0,
+          glue("{pkg_name} wasn't found on the machine."))
 }
 

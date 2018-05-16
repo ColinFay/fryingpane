@@ -13,13 +13,15 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 # fryingpane
 
-Serve the datasets from your package inside the RStudio Connection Pane
+Serve the datasets from a package inside the RStudio Connection Pane.
 
 ## Installation
 
-You can install the dev version of fryingpane from [Github](https://github.com/ColinFay/fryingpane) with:
+You can install the dev version of {fryingpane} from [Github](https://github.com/ColinFay/fryingpane) with:
 
 ```{r eval = FALSE}
 # install.packages("remotes")
@@ -28,15 +30,19 @@ remotes::install_github("ColinFay/fryingpane")
 
 ## What is this about? 
 
+### In your package
+
 Use this package to create functions for displaying your package data inside the RStudio Connection Pane. 
 
-__Note that you'll need both opening and closing functions in a package or interactively__.
+__Note that you'll need both opening and closing functions, either in a package or interactively__.
 
-### Function to launch connection
+`{fryingpane}` should be listed as a dependency to your new package. 
+
+#### Function to launch connection
 
 Create a function that launch the connection pane with the datasets from your package. This function should have this form in the `.R` (change  `mypkg` to the name of your package):
 
-```{r}
+```{r eval = FALSE}
 #' Launch Connection Pane
 #' @export
 #' @importFrom fryingpane serve
@@ -45,11 +51,11 @@ Create a function that launch the connection pane with the datasets from your pa
 open_connection <- fryingpane::serve("mypkg")
 ```
 
-### Function to close the connection
+#### Function to close the connection
 
 __Important: don't change the name of close_connection()__
 
-```{r}
+```{r eval = FALSE}
 #' Stop Connection Pane
 #' @export
 #' @importFrom fryingpane close
@@ -58,17 +64,17 @@ __Important: don't change the name of close_connection()__
 close_connection <- fryingpane::close("mypkg")
 ```
 
-## View the data from another package
+### View the data from another package
 
 You can open the datasets from another package. 
 
-__Please note that you also need to create BOTH functions when using interactively.__
+__Please note that you need to create BOTH functions when using interactively.__
 
 ```{r eval = FALSE}
 library(fryingpane)
-open_facto <- pane_open("FactoMineR")
-close_connection <- pane_close("FactoMineR")
-open_facto()
+open_dplyr <- serve("dplyr")
+close_connection <- close("dplyr")
+open_dplyr()
 ```
 
 ![](readme_fig/pane.png)

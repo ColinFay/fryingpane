@@ -4,7 +4,7 @@
 \alias{close}
 \title{Create a Pane Closing Function}
 \usage{
-close(pkg_name, message = "Connection closed")
+close(pkg_name)
 }
 \arguments{
 \item{pkg_name}{the name of the package}

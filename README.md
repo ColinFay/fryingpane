@@ -1,13 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 # fryingpane
 
-Serve the datasets from your package inside the RStudio Connection Pane
+Serve the datasets from a package inside the RStudio Connection Pane.
 
 ## Installation
 
-You can install the dev version of fryingpane from
+You can install the dev version of {fryingpane} from
 [Github](https://github.com/ColinFay/fryingpane) with:
 
 ``` r
@@ -17,13 +19,17 @@ remotes::install_github("ColinFay/fryingpane")
 
 ## What is this about?
 
+### In your package
+
 Use this package to create functions for displaying your package data
 inside the RStudio Connection Pane.
 
-**Note that you’ll need both opening and closing functions in a package
-or interactively**.
+**Note that you’ll need both opening and closing functions, either in a
+package or interactively**.
 
-### Function to launch connection
+`{fryingpane}` should be listed as a dependency to your new package.
+
+#### Function to launch connection
 
 Create a function that launch the connection pane with the datasets from
 your package. This function should have this form in the `.R` (change
@@ -38,7 +44,7 @@ your package. This function should have this form in the `.R` (change
 open_connection <- fryingpane::serve("mypkg")
 ```
 
-### Function to close the connection
+#### Function to close the connection
 
 **Important: don’t change the name of close\_connection()**
 
@@ -51,18 +57,18 @@ open_connection <- fryingpane::serve("mypkg")
 close_connection <- fryingpane::close("mypkg")
 ```
 
-## View the data from another package
+### View the data from another package
 
 You can open the datasets from another package.
 
-**Please note that you also need to create BOTH functions when using
+**Please note that you need to create BOTH functions when using
 interactively.**
 
 ``` r
 library(fryingpane)
-open_facto <- pane_open("FactoMineR")
-close_connection <- pane_close("FactoMineR")
-open_facto()
+open_dplyr <- serve("dplyr")
+close_connection <- close("dplyr")
+open_dplyr()
 ```
 
 ![](readme_fig/pane.png)
