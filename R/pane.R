@@ -25,8 +25,10 @@ list_objects <- function(includeType, data_names, data_type) {
   }
 }
 
+#' @importFrom tibble tibble
+
 tibble_res <- function(label, type){
-  data.frame(
+  tibble(
     name = label,
     type = type
   )
@@ -45,8 +47,6 @@ preview_object <- function(pkg_name, table, limit) {
   res <- get(data(list = table, package = pkg_name))
   res
 }
-
-#' @importFrom utils browseURL
 
 pkg_actions <- function(pkg_name){
   # list(
@@ -67,9 +67,7 @@ list_objects_types <- function() {
   )
 }
 
-#' @keywords internal
 #' @importFrom glue glue
-#' @export
 
 on_connection_opened <- function(pkg_name = "pkg") {
   data_list  <- data(package = pkg_name)
@@ -80,7 +78,7 @@ on_connection_opened <- function(pkg_name = "pkg") {
                               host = pkg_name,
                               displayName = pkg_name,
                               icon = system.file("img","package.png", package = "fryingpane"),
-                              connectCode = glue('library(fryingpane)\nopen_{pkg_name} <- serve("{pkg_name}")\nopen_{pkg_name}()'),
+                              connectCode = glue('library(fryingpane)\ncook("{pkg_name}")'),
                               disconnect = function() {
                                 close_connection(pkg_name)
                               },
@@ -122,6 +120,23 @@ serve <- function(pkg_name){
   function(...){
     on_connection_opened(pkg_name)
   }
+}
+
+#' Open the datasets from a package
+#'
+#' @param pkg_name the name of the package
+#'
+#' @return a function for closing the connection
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' cook("dplyr")
+#' }
+
+cook <- function(pkg_name){
+  test_if_exists(pkg_name)
+  on_connection_opened(pkg_name)
 }
 
 #' @importFrom attempt stop_if

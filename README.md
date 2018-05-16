@@ -48,8 +48,7 @@ You can open the datasets from another package.
 
 ``` r
 library(fryingpane)
-open_dplyr <- serve("dplyr")
-open_dplyr()
+cook("dplyr")
 ```
 
 ![](readme_fig/pane.png)
@@ -61,6 +60,10 @@ You can find an history of your last connection in the Connections pane.
 ![](readme_fig/hist.png)
 
 ![](readme_fig/hist2.png)
+
+## Demo
+
+![](readme_fig/fryingpane.gif)
 
 ## Contact
 

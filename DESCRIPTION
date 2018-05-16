@@ -12,5 +12,7 @@ Suggests:
     testthat
 Imports: 
     attempt,
-    glue
+    glue,
+    shiny,
+    tibble
 RoxygenNote: 6.0.1
