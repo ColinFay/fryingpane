@@ -29,8 +29,8 @@ package.
 
 #### Function to launch connection
 
-Create a function that launch the connection pane with the datasets from
-your package. This function should have this form in the `.R` (change
+Create a function that launches the connection pane with the datasets from
+your package. This function should have the following form in the `.R` (change
 `mypkg` to the name of your package):
 
 ``` r
