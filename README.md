@@ -48,7 +48,7 @@ You can open the datasets from another package.
 
 ``` r
 library(fryingpane)
-cook("dplyr")
+cook("FactoMineR")
 ```
 
 ![](readme_fig/pane.png)
