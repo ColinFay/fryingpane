@@ -27,7 +27,7 @@ inside the RStudio Connection Pane.
 Note that `{fryingpane}` should be listed as a dependency to your new
 package.
 
-#### Function to launch connection
+#### Function to launch the Connection Pane for your package
 
 Create a function that launches the connection pane with the datasets from
 your package. This function should have the following form in the `.R` (change
